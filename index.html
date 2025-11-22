@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Graphic Designer - Chuyên thiết kế Social Media, Branding, Packaging và POSM.">
+    <title>Portfolio - Graphic Designer | Cyberpunk Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'cosmic-black': '#050507',
+                        'deep-space': '#0a0a12',
+                        'neon-pink': '#ff00ff',
+                        'neon-cyan': '#00f3ff',
+                        'neon-purple': '#bc13fe',
+                        'glass-dark': 'rgba(10, 10, 18, 0.95)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cyber: ['Orbitron', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 10px #00f3ff, 0 0 20px rgba(0, 243, 255, 0.5)',
+                        'neon-pink': '0 0 10px #ff00ff, 0 0 20px rgba(255, 0, 255, 0.5)',
+                        'neon-purple': '0 0 10px #bc13fe, 0 0 20px rgba(188, 19, 254, 0.5)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 10s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.5 },
+                            '50%': { opacity: 1 },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: 0, transform: 'translateY(20px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050507;
+            color: #ffffff;
+            overflow-x: hidden; /* Prevent scroll on body when modal is open if needed */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #bc13fe, #00f3ff);
+            border-radius: 4px;
+        }
+
+        /* Cyberpunk Grid Background */
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+        }
+
+        /* Neon Border Effect */
+        .neon-border-box {
+            position: relative;
+            background: rgba(10, 10, 18, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+        .neon-border-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(45deg, transparent 40%, #00f3ff, #ff00ff, transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .neon-border-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.2);
+        }
+        .neon-border-box:hover::before {
+            opacity: 1;
+        }
+
+        /* Glitch Text Effect */
+        .glitch-text { position: relative; }
+        .glitch-text:hover::before, .glitch-text:hover::after {
+            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050507;
+        }
+        .glitch-text:hover::before {
+            left: 2px; text-shadow: -1px 0 #ff00ff; clip: rect(24px, 550px, 90px, 0); animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-text:hover::after {
+            left: -2px; text-shadow: -1px 0 #00f3ff; clip: rect(85px, 550px, 140px, 0); animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(14px, 9999px, 122px, 0); } 100% { clip: rect(106px, 9999px, 67px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(122px, 9999px, 146px, 0); } 100% { clip: rect(15px, 9999px, 185px, 0); }
+        }
+
+        /* View Transition Utilities */
+        .hidden-view {
+            display: none !important;
+        }
+        .category-card:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-neon-pink selection:text-white">
+
+    <!-- Background Elements -->
+    <div class="cyber-grid"></div>
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-neon-purple opacity-10 blur-[120px] rounded-full animate-pulse-glow"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-neon-cyan opacity-10 blur-[120px] rounded-full animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-root">
+        
+        <!-- === VIEW 1: HOME PAGE === -->
+        <div id="home-view" class="transition-opacity duration-500 ease-in-out">
+            
+            <!-- Navigation -->
+            <nav class="fixed w-full z-50 bg-cosmic-black/80 backdrop-blur-lg border-b border-white/10 transition-all duration-300" id="navbar">
+                <div class="container mx-auto px-6 py-4">
+                    <div class="flex justify-between items-center">
+                        <a href="#" class="text-2xl font-cyber font-bold text-white tracking-widest hover:scale-105 transition-transform">
+                            DESIGN<span class="text-neon-cyan">.ER</span>
+                        </a>
+                        <!-- Desktop Menu -->
+                        <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide" id="desktop-menu">
+                            <a href="#about" class="nav-link text-gray-300 hover:text-neon-cyan transition-colors py-2 relative group">GIỚI THIỆU</a>
+                            <a href="#services" class="nav-link text-gray-300 hover:text-neon-cyan transition-colors py-2 relative group">KỸ NĂNG</a>
+                            <a href="#categories" class="nav-link text-gray-300 hover:text-neon-cyan transition-colors py-2 relative group">DANH MỤC</a>
+                            <a href="#contact" class="px-6 py-2 border border-neon-cyan text-neon-cyan rounded hover:bg-neon-cyan hover:text-black transition-all duration-300 font-cyber font-bold text-xs flex items-center gap-2">
+                                LIÊN HỆ <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <!-- Mobile Menu Button -->
+                        <button id="mobile-menu-btn" class="md:hidden text-white text-2xl hover:text-neon-cyan focus:outline-none"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <section id="about" class="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
+                <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="order-2 md:order-1 animate-[fadeInUp_1s_ease-out]">
+                        <div class="inline-block px-3 py-1 mb-4 border border-neon-cyan/50 rounded-full bg-neon-cyan/10 backdrop-blur-sm">
+                            <span class="text-neon-cyan font-cyber text-xs tracking-[0.2em] uppercase">Graphic Designer Portfolio</span>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-bold font-cyber leading-tight mb-6">
+                            <span class="block glitch-text mb-2" data-text="NGUYỄN HỮU">NGUYỄN HỮU</span>
+                            <span class="block glitch-text text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-pink" data-text="PHÚ TÂN">PHÚ TÂN</span>
+                        </h1>
+                        <div class="relative p-6 bg-white/5 rounded-xl border-l-4 border-neon-purple backdrop-blur-sm mb-8 hover:bg-white/10 transition-colors">
+                            <i class="fas fa-quote-left absolute top-4 left-4 text-neon-purple/20 text-4xl -z-10"></i>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                "Là một Graphic Designer với <strong class="text-white">3 năm kinh nghiệm</strong>, tôi chuyên tạo ra các thiết kế hiệu quả cho Social Media và E-commerce nhằm tăng tương tác và tỷ lệ chuyển đổi. Tôi cũng thành thạo trong việc phát triển nhận diện thương hiệu toàn diện qua Logo, Branding, bao bì và các ấn phẩm POSM."
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#categories" class="relative px-8 py-3 bg-neon-cyan text-black font-cyber font-bold hover:bg-white transition-all duration-300 clip-path-polygon shadow-neon-cyan">
+                                XEM DỰ ÁN
+                            </a>
+                            <a href="#contact" class="px-8 py-3 border border-gray-600 text-white hover:border-neon-pink hover:text-neon-pink transition-all font-cyber flex items-center gap-2">
+                                <i class="far fa-envelope"></i> GỬI MAIL
+                            </a>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2 flex justify-center relative">
+                        <div class="relative w-80 h-80 md:w-[450px] md:h-[450px] animate-float">
+                            <div class="absolute inset-0 border border-neon-cyan/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                            <div class="absolute inset-4 border border-neon-pink/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                            <div class="absolute inset-[-20px] border border-dashed border-gray-700 rounded-full animate-spin-slow opacity-50"></div>
+                            <div class="absolute inset-2 rounded-full overflow-hidden border-4 border-gray-800 shadow-[0_0_50px_rgba(188,19,254,0.3)] z-10 group">
+                                <img src="uploaded:Artboard 1@3x.jpg-a073cec3-2942-4b87-858a-d1d71590d16f" alt="Designer Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-cosmic-black via-transparent to-transparent opacity-60"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="py-24 bg-deep-space relative">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-sm font-cyber text-neon-pink tracking-[0.3em] mb-2">KỸ NĂNG</h2>
+                        <h3 class="text-3xl md:text-4xl font-bold font-cyber text-white">LĨNH VỰC HOẠT ĐỘNG</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="neon-border-box p-8 rounded-2xl group cursor-pointer hover:bg-white/5" onclick="openCategory('social')">
+                            <div class="w-14 h-14 bg-neon-cyan/10 rounded-lg flex items-center justify-center text-neon-cyan text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-neon-cyan/20">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                            <h4 class="text-xl font-bold font-cyber text-white mb-4 group-hover:text-neon-cyan transition-colors">Social Media & Ads</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Thiết kế visual, banner quảng cáo Facebook/Instagram tối ưu tương tác.</p>
+                        </div>
+                        <div class="neon-border-box p-8 rounded-2xl group cursor-pointer hover:bg-white/5" onclick="openCategory('branding')">
+                            <div class="w-14 h-14 bg-neon-pink/10 rounded-lg flex items-center justify-center text-neon-pink text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-neon-pink/20">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <h4 class="text-xl font-bold font-cyber text-white mb-4 group-hover:text-neon-pink transition-colors">Branding Identity</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Logo, Key Visual và hệ thống nhận diện thương hiệu nhất quán.</p>
+                        </div>
+                        <div class="neon-border-box p-8 rounded-2xl group cursor-pointer hover:bg-white/5" onclick="openCategory('packaging')">
+                            <div class="w-14 h-14 bg-neon-purple/10 rounded-lg flex items-center justify-center text-neon-purple text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-neon-purple/20">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h4 class="text-xl font-bold font-cyber text-white mb-4 group-hover:text-neon-purple transition-colors">Packaging & POSM</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Bao bì sản phẩm và vật phẩm quảng cáo tại điểm bán.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section (Replacing old Projects Grid) -->
+            <section id="categories" class="py-24 bg-cosmic-black relative">
+                <div class="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-sm font-cyber text-neon-cyan tracking-[0.3em] mb-2">PORTFOLIO</h2>
+                        <h3 class="text-3xl md:text-4xl font-bold font-cyber text-white">DANH MỤC DỰ ÁN</h3>
+                        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Chọn một danh mục bên dưới để xem chi tiết các sản phẩm thiết kế của tôi.</p>
+                    </div>
+
+                    <!-- Category Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <!-- 1. Social Media -->
+                        <div onclick="openCategory('social')" class="category-card group relative rounded-xl overflow-hidden cursor-pointer h-64 border border-gray-800 hover:border-neon-cyan transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Social Media">
+                            <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <i class="fab fa-facebook-f text-neon-cyan text-2xl mb-2 block transition-transform duration-300"></i>
+                                        <h4 class="text-2xl font-bold font-cyber text-white group-hover:text-neon-cyan transition-colors">SOCIAL MEDIA</h4>
+                                        <p class="text-gray-400 text-xs mt-1">Facebook, Instagram, TikTok Posts</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-500 group-hover:text-neon-cyan group-hover:translate-x-2 transition-all"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Branding -->
+                        <div onclick="openCategory('branding')" class="category-card group relative rounded-xl overflow-hidden cursor-pointer h-64 border border-gray-800 hover:border-neon-pink transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Branding">
+                            <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <i class="fas fa-drafting-compass text-neon-pink text-2xl mb-2 block transition-transform duration-300"></i>
+                                        <h4 class="text-2xl font-bold font-cyber text-white group-hover:text-neon-pink transition-colors">BRANDING</h4>
+                                        <p class="text-gray-400 text-xs mt-1">Logo, Brand Identity, Namecard</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-500 group-hover:text-neon-pink group-hover:translate-x-2 transition-all"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Packaging -->
+                        <div onclick="openCategory('packaging')" class="category-card group relative rounded-xl overflow-hidden cursor-pointer h-64 border border-gray-800 hover:border-neon-purple transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1595246140625-573b715d1128?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Packaging">
+                            <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <i class="fas fa-cube text-neon-purple text-2xl mb-2 block transition-transform duration-300"></i>
+                                        <h4 class="text-2xl font-bold font-cyber text-white group-hover:text-neon-purple transition-colors">PACKAGING</h4>
+                                        <p class="text-gray-400 text-xs mt-1">Box, Label, Bottle Design</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-500 group-hover:text-neon-purple group-hover:translate-x-2 transition-all"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. E-commerce -->
+                        <div onclick="openCategory('ecommerce')" class="category-card group relative rounded-xl overflow-hidden cursor-pointer h-64 border border-gray-800 hover:border-orange-500 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="E-commerce">
+                            <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <i class="fas fa-shopping-cart text-orange-500 text-2xl mb-2 block transition-transform duration-300"></i>
+                                        <h4 class="text-2xl font-bold font-cyber text-white group-hover:text-orange-500 transition-colors">E-COMMERCE</h4>
+                                        <p class="text-gray-400 text-xs mt-1">Shopee, Lazada, Tiki Banner</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-500 group-hover:text-orange-500 group-hover:translate-x-2 transition-all"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. POSM -->
+                        <div onclick="openCategory('posm')" class="category-card group relative rounded-xl overflow-hidden cursor-pointer h-64 border border-gray-800 hover:border-green-400 transition-all duration-300 md:col-span-2 lg:col-span-2">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?q=80&w=1200&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="POSM">
+                            <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
+                                <div class="flex justify-between items-end">
+                                    <div>
+                                        <i class="fas fa-store text-green-400 text-2xl mb-2 block transition-transform duration-300"></i>
+                                        <h4 class="text-2xl font-bold font-cyber text-white group-hover:text-green-400 transition-colors">POSM</h4>
+                                        <p class="text-gray-400 text-xs mt-1">Standee, Poster, Wobbler, Booth</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-500 group-hover:text-green-400 group-hover:translate-x-2 transition-all"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-24 relative bg-deep-space overflow-hidden">
+                <div class="container mx-auto px-6 relative z-10">
+                    <h2 class="text-4xl font-cyber font-bold text-white mb-12 text-center uppercase tracking-wider">
+                        Liên hệ <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-white">với tôi</span>
+                    </h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                        <!-- Form -->
+                        <div>
+                            <form action="#" class="space-y-6">
+                                <div class="space-y-2"><label class="text-gray-400 text-sm font-semibold">Họ và tên</label><input type="text" class="w-full bg-[#0f0f16] border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neon-cyan transition-all"></div>
+                                <div class="space-y-2"><label class="text-gray-400 text-sm font-semibold">Email</label><input type="email" class="w-full bg-[#0f0f16] border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neon-cyan transition-all"></div>
+                                <div class="space-y-2"><label class="text-gray-400 text-sm font-semibold">Tin nhắn</label><textarea rows="4" class="w-full bg-[#0f0f16] border border-gray-800 rounded px-4 py-3 text-white focus:outline-none focus:border-neon-cyan transition-all"></textarea></div>
+                                <button type="button" class="w-full bg-neon-cyan text-black font-cyber font-bold py-4 rounded shadow-neon-cyan hover:scale-[1.02] transition-all">GỬI TIN NHẮN</button>
+                            </form>
+                        </div>
+                        <!-- Info -->
+                        <div class="space-y-8">
+                            <div class="flex items-center gap-4 bg-[#0f0f16] p-4 rounded-lg border border-gray-800"><div class="w-12 h-12 rounded bg-[#1a1a24] flex items-center justify-center text-neon-cyan text-xl"><i class="fas fa-envelope"></i></div><div><p class="text-gray-500 text-xs uppercase mb-1">Email</p><p class="text-white font-semibold">designer@example.com</p></div></div>
+                            <div class="flex items-center gap-4 bg-[#0f0f16] p-4 rounded-lg border border-gray-800"><div class="w-12 h-12 rounded bg-[#1a1a24] flex items-center justify-center text-neon-pink text-xl"><i class="fas fa-phone-alt"></i></div><div><p class="text-gray-500 text-xs uppercase mb-1">Điện thoại</p><p class="text-white font-semibold">+84 123 456 789</p></div></div>
+                            <div class="flex items-center gap-4 bg-[#0f0f16] p-4 rounded-lg border border-gray-800"><div class="w-12 h-12 rounded bg-[#1a1a24] flex items-center justify-center text-neon-purple text-xl"><i class="fas fa-map-marker-alt"></i></div><div><p class="text-gray-500 text-xs uppercase mb-1">Địa chỉ</p><p class="text-white font-semibold">Hồ Chí Minh, Việt Nam</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- === END VIEW 1 === -->
+
+
+        <!-- === VIEW 2: CATEGORY DETAIL PAGE (Hidden by default) === -->
+        <div id="category-page" class="hidden-view fixed inset-0 z-[60] bg-cosmic-black overflow-y-auto animate-fade-in">
+            <!-- Header for Detail Page -->
+            <div class="sticky top-0 bg-cosmic-black/90 backdrop-blur-xl border-b border-gray-800 z-50 px-6 py-4 flex justify-between items-center shadow-2xl">
+                <button onclick="closeCategory()" class="flex items-center gap-2 text-white hover:text-neon-cyan transition-colors font-cyber text-sm group">
+                    <div class="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center group-hover:border-neon-cyan transition-colors">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    QUAY LẠI
+                </button>
+                <h2 id="page-title" class="text-xl font-cyber font-bold text-white tracking-widest uppercase">DANH MỤC</h2>
+                <div class="w-8"></div> <!-- Spacer -->
+            </div>
+
+            <!-- Detail Content -->
+            <div class="container mx-auto px-6 py-12">
+                <div class="text-center mb-12">
+                     <h1 id="detail-heading" class="text-4xl md:text-5xl font-bold font-cyber text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-pink mb-4">
+                        TÊN DANH MỤC
+                    </h1>
+                    <p id="detail-desc" class="text-gray-400 max-w-2xl mx-auto">Mô tả ngắn về danh mục này.</p>
+                </div>
+
+                <!-- Dynamic Grid -->
+                <div id="detail-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Javascript will populate this -->
+                </div>
+            </div>
+            
+            <!-- Footer for Detail Page -->
+            <div class="py-12 text-center border-t border-gray-900 mt-12">
+                <button onclick="closeCategory()" class="px-8 py-3 border border-gray-700 rounded text-gray-400 hover:text-white hover:border-white transition-all text-sm font-cyber">
+                    XEM DANH MỤC KHÁC
+                </button>
+            </div>
+        </div>
+        <!-- === END VIEW 2 === -->
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // 1. DATA: Project Database
+        const projectData = {
+            'social': {
+                title: "SOCIAL MEDIA",
+                desc: "Các dự án thiết kế cho mạng xã hội bao gồm Facebook Post, Instagram Story, TikTok Cover nhằm tối ưu hóa tương tác người dùng.",
+                color: "text-neon-cyan",
+                images: [
+                    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+                    "https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=800&q=80",
+                    "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80",
+                    "https://images.unsplash.com/photo-1611162618071-2394f1043494?w=800&q=80",
+                    "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&q=80"
+                ]
+            },
+            'branding': {
+                title: "BRANDING IDENTITY",
+                desc: "Xây dựng hệ thống nhận diện thương hiệu chuyên nghiệp từ Logo, bảng màu, font chữ đến các ấn phẩm văn phòng.",
+                color: "text-neon-pink",
+                images: [
+                    "https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&q=80",
+                    "https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&q=80",
+                    "https://images.unsplash.com/photo-1626785774573-4b7993143a2d?w=800&q=80",
+                    "https://images.unsplash.com/photo-1586717791821-3f44a5638d0f?w=800&q=80"
+                ]
+            },
+            'packaging': {
+                title: "PACKAGING DESIGN",
+                desc: "Thiết kế bao bì sản phẩm sáng tạo, bắt mắt, giúp sản phẩm nổi bật trên kệ hàng và thu hút người tiêu dùng.",
+                color: "text-neon-purple",
+                images: [
+                    "https://images.unsplash.com/photo-1595246140625-573b715d1128?w=800&q=80",
+                    "https://images.unsplash.com/photo-1632515949686-2244ae9c4b75?w=800&q=80",
+                    "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80",
+                    "https://images.unsplash.com/photo-1556742521-9713bf272865?w=800&q=80"
+                ]
+            },
+            'ecommerce': {
+                title: "E-COMMERCE UI",
+                desc: "Thiết kế giao diện gian hàng Shopee/Lazada, banner campaign giảm giá, khung sản phẩm giúp tăng tỷ lệ chuyển đổi.",
+                color: "text-orange-500",
+                images: [
+                    "https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?w=800&q=80",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+                    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+                    "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80"
+                ]
+            },
+            'posm': {
+                title: "POSM & EVENT",
+                desc: "Vật phẩm quảng cáo tại điểm bán: Standee, Wobbler, Backdrop sự kiện, Poster treo tường.",
+                color: "text-green-400",
+                images: [
+                    "https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?w=800&q=80",
+                    "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80",
+                    "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80",
+                    "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80"
+                ]
+            }
+        };
+
+        // 2. VIEW CONTROLLER LOGIC
+        const homeView = document.getElementById('home-view');
+        const categoryPage = document.getElementById('category-page');
+        const detailGrid = document.getElementById('detail-grid');
+        const detailHeading = document.getElementById('detail-heading');
+        const detailDesc = document.getElementById('detail-desc');
+        const pageTitle = document.getElementById('page-title');
+
+        function openCategory(key) {
+            const data = projectData[key];
+            if (!data) return;
+
+            // 1. Populate Data
+            detailHeading.textContent = data.title;
+            detailDesc.textContent = data.desc;
+            pageTitle.textContent = data.title;
+            
+            // Generate Grid Items
+            detailGrid.innerHTML = data.images.map((img, index) => `
+                <div class="group relative rounded-xl overflow-hidden h-72 border border-gray-800 hover:border-white/50 transition-all duration-300 animate-[fadeInUp_0.5s_ease-out]" style="animation-delay: ${index * 100}ms">
+                    <img src="${img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Project ${index}">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="${data.color} text-xs font-cyber tracking-wider">PROJECT 0${index + 1}</span>
+                            <h4 class="text-white font-bold text-lg mt-1">Design Concept</h4>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 2. Switch Views
+            homeView.classList.add('hidden-view');
+            categoryPage.classList.remove('hidden-view');
+            window.scrollTo(0, 0);
+        }
+
+        function closeCategory() {
+            categoryPage.classList.add('hidden-view');
+            homeView.classList.remove('hidden-view');
+            window.scrollTo(0, 0); // Optional: remember scroll position if needed
+        }
+
+        // 3. Navbar & Other Existing Logic
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-cosmic-black/95', 'shadow-neon-purple');
+                navbar.classList.remove('bg-cosmic-black/80');
+            } else {
+                navbar.classList.remove('bg-cosmic-black/95', 'shadow-neon-purple');
+                navbar.classList.add('bg-cosmic-black/80');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        // Simple mobile menu alert/toggle logic if needed, currently kept minimal
+    </script>
+</body>
+</html>
